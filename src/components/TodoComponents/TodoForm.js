@@ -4,7 +4,12 @@ import './Todo.css';
 class TodoForm extends React.Component {
   state = {
     textInput: '',
+    searchInput: '',
   }
+
+  // componentDidUpdate() {
+  //   this.props.searchListUpdater(this.state.searchInput);
+  // }
 
   clearInput = () => {
     this.setState({ textInput: '' });
@@ -28,17 +33,34 @@ class TodoForm extends React.Component {
     });
   }
 
+  searchHandler = event => {
+    this.setState({
+      searchInput: event.target.value,
+    });
+    this.props.searchListUpdater(this.state.searchInput);
+  }
+
   render() {
     return (
       <div>
         <input
           type="text"
+          placeholder="What to do?"
           value={this.state.textInput}
           onChange={this.changeHandler}
         />
 
         <button onClick={this.addTodo}>Add Todo</button>
         <button onClick={this.removeCompleted}>Remove completed</button>
+
+        <div>
+          <input
+            type="text"
+            placeholder="Search the list"
+            value={this.state.searchInput}
+            onChange={this.searchHandler}
+          />
+        </div>
       </div>
     );
   }

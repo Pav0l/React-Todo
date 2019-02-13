@@ -7,7 +7,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      todoList: JSON.parse(localStorage.getItem('todoList')),
+      todoList: JSON.parse(localStorage.getItem('todoList')) || [{item: 'Eat', completed: false, id: 0}],
+      searchList: null || todoList,
     };
   }
 
@@ -23,6 +24,7 @@ class App extends React.Component {
   }
 
   markComplete = (idx) => {
+    /*
     let newList = this.state.todoList.map((item,index) => {
       if(index === idx && item.completed === false) {
         item.completed = true;
@@ -31,6 +33,11 @@ class App extends React.Component {
       }
       return item;
     });
+    */
+
+    let newList = this.state.todoList;
+    newList[idx].completed = !this.state.todoList[idx].completed;
+
     this.setState({todoList: [...newList]});
     document.getElementById(idx).classList.toggle('item-completed');
   }
@@ -39,6 +46,19 @@ class App extends React.Component {
     let removedList = this.state.todoList.filter(item => item.completed===false);
     this.setState({todoList: [...removedList]});
     document.querySelectorAll('.item-completed').forEach(item => item.classList.remove('item-completed'))
+  }
+
+  searchListUpdater = (searchInput) => {
+    // filter list
+    /*
+    this.setState(st => {
+      const initialList = st.todoList;
+      const searchArr = st.todoList.filter((item) => item.item.includes(searchInput));
+
+      return {
+        todoList: [...searchArr],
+      }
+    });*/
   }
 
   render() {
@@ -53,6 +73,7 @@ class App extends React.Component {
         <TodoForm
         listUpdater={this.listUpdater}
         removeItem={this.removeItem}
+        searchListUpdater={this.searchListUpdater}
         />
       </div>
     );
