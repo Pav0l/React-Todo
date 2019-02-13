@@ -13,7 +13,7 @@ class App extends React.Component {
 
   listUpdater = (input) => {
     this.setState(state => ({
-      todoList: state.todoList.concat({item: input, completed: false })
+      todoList: state.todoList.concat({item: input, completed: false, id: Date.now()})
     }))
   }
 
@@ -33,6 +33,7 @@ class App extends React.Component {
   removeItem = () => {
     let removedList = this.state.todoList.filter(item => item.completed===false);
     this.setState({todoList: [...removedList]});
+    document.querySelectorAll('.item-completed').forEach(item => item.classList.remove('item-completed'))
   }
 
   render() {
