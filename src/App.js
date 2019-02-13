@@ -1,13 +1,53 @@
 import React from 'react';
+import TodoForm from './components/TodoComponents/TodoForm.js';
+import TodoList from './components/TodoComponents/TodoList.js';
 
 class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      todoList: [{item: 'Eat', completed: false}],
+    };
+  }
+
+  listUpdater = (input) => {
+    this.setState(state => ({
+      todoList: state.todoList.concat({item: input, completed: false })
+    }))
+  }
+
+  markComplete = (idx) => {
+    let newList = this.state.todoList.map((item,index) => {
+      if(index === idx && item.completed === false) {
+        item.completed = true;
+      } else if (index === idx && item.completed === true) {
+        item.completed = false;
+      }
+      return item;
+    });
+    this.setState({todoList: [...newList]});
+    document.getElementById(idx).classList.toggle('item-completed');
+  }
+
+  removeItem = () => {
+    let removedList = this.state.todoList.filter(item => item.completed===false);
+    this.setState({todoList: [...removedList]});
+  }
+
   render() {
     return (
       <div>
-        <h2>Welcome to your Todo App!</h2>
+
+        <TodoList
+          todoList={this.state.todoList}
+          markComplete={this.markComplete}
+        />
+
+        <TodoForm
+        listUpdater={this.listUpdater}
+        removeItem={this.removeItem}
+        />
       </div>
     );
   }
