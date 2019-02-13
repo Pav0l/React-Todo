@@ -8,7 +8,6 @@ class App extends React.Component {
 
     this.state = {
       todoList: JSON.parse(localStorage.getItem('todoList')) || [{item: 'Eat', completed: false, id: 0}],
-      searchList: null || todoList,
     };
   }
 
