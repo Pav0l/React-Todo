@@ -7,14 +7,19 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      todoList: [{item: 'Eat', completed: false}],
+      todoList: JSON.parse(localStorage.getItem('todoList')),
     };
+  }
+
+  componentDidUpdate() {
+    localStorage.removeItem('todoList');
+    localStorage.setItem('todoList', JSON.stringify(this.state.todoList));
   }
 
   listUpdater = (input) => {
     this.setState(state => ({
       todoList: state.todoList.concat({item: input, completed: false, id: Date.now()})
-    }))
+    }));
   }
 
   markComplete = (idx) => {
