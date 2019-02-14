@@ -7,14 +7,19 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      todoList: JSON.parse(localStorage.getItem('todoList')) || [{item: 'Eat', completed: false, id: 0}],
+      todoList: [{item: 'Eat', completed: false, id: 0}],
     };
   }
 
+  /*
   componentDidUpdate() {
+    // this goes into the state:
+    JSON.parse(localStorage.getItem('todoList'))
+    //  this stays in the method:
     localStorage.removeItem('todoList');
     localStorage.setItem('todoList', JSON.stringify(this.state.todoList));
   }
+  */
 
   listUpdater = (input) => {
     this.setState(state => ({
@@ -23,21 +28,12 @@ class App extends React.Component {
   }
 
   markComplete = (idx) => {
-    /*
-    let newList = this.state.todoList.map((item,index) => {
-      if(index === idx && item.completed === false) {
-        item.completed = true;
-      } else if (index === idx && item.completed === true) {
-        item.completed = false;
-      }
-      return item;
-    });
-    */
+    this.setState(oldState => {
+      const newList = oldState.todoList;
+      newList[idx].completed = !oldState.todoList[idx].completed;
 
-    let newList = this.state.todoList;
-    newList[idx].completed = !this.state.todoList[idx].completed;
-
-    this.setState({todoList: [...newList]});
+      return { todoList: [...newList] }
+    })
     document.getElementById(idx).classList.toggle('item-completed');
   }
 
@@ -63,16 +59,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-
-        <TodoList
-          todoList={this.state.todoList}
-          markComplete={this.markComplete}
-        />
-
         <TodoForm
         listUpdater={this.listUpdater}
         removeItem={this.removeItem}
         searchListUpdater={this.searchListUpdater}
+        />
+
+        <TodoList
+          todoList={this.state.todoList}
+          markComplete={this.markComplete}
         />
       </div>
     );

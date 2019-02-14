@@ -15,15 +15,17 @@ class TodoForm extends React.Component {
     this.setState({ textInput: '' });
   }
 
-  addTodo = () => {
+  addTodo = (e) => {
     // run function that updates the list from the App.js
     this.props.listUpdater(this.state.textInput);
     this.clearInput();
+    e.preventDefault();
   }
 
-  removeCompleted = () => {
+  removeCompleted = (e) => {
     // run function that removes completed buttons from the list
     this.props.removeItem();
+    e.preventDefault();
   }
 
 
@@ -42,7 +44,7 @@ class TodoForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <form>
         <input
           type="text"
           placeholder="What to do?"
@@ -61,7 +63,7 @@ class TodoForm extends React.Component {
             onChange={this.searchHandler}
           />
         </div>
-      </div>
+      </form>
     );
   }
 }

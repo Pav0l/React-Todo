@@ -5,6 +5,9 @@ export default function Todo({ todoList, markComplete }) {
   return (
       <ul>
         {
+          todoList.length === 0
+          ? <h4>You are finished with all your tasks! Time to code!</h4>
+          :
           todoList.map((item, idx) => (
             <li
               key={idx}
