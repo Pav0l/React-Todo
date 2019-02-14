@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import './Todo.css';
 import styled from 'styled-components';
 
@@ -56,4 +56,4 @@ const StyledH4 = styled.h4`
     content: '🚀';
     margin-right: 5px;
   }
-`; 
+`;

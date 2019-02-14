@@ -32,13 +32,13 @@ class TodoForm extends React.Component {
     });
   }
 
-  searchHandler = (event) => { 
+  searchHandler = (event) => {
     event.preventDefault();
 
     this.setState({
       searchInput: event.target.value,
-    },() => {
-      if(this.searchInput !== "") {
+    }, () => {
+      if (this.searchInput !== '') {
         this.props.searchListUpdater(this.state.searchInput);
       }
     });

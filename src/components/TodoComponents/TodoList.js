@@ -1,7 +1,7 @@
 import React from 'react';
 import './Todo.css';
-import Todo from './Todo';
 import styled from 'styled-components';
+import Todo from './Todo';
 
 export default function TodoList({ todoList, markComplete }) {
   return (
