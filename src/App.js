@@ -30,7 +30,7 @@ class App extends React.Component {
       const newList = oldState.todoList;
       newList[idx].completed = !oldState.todoList[idx].completed;
 
-      return { todoList: [...newList] }
+      return { todoList: [...newList] };
     });
     document.getElementById(idx).classList.toggle('item-completed');
   }
@@ -38,7 +38,7 @@ class App extends React.Component {
   removeItem = () => {
     const removedList = this.state.todoList.filter(item => item.completed === false);
     this.setState({ todoList: [...removedList] });
-    document.querySelectorAll('.item-completed').forEach(item => item.classList.remove('item-completed'))
+    document.querySelectorAll('.item-completed').forEach(item => item.classList.remove('item-completed'));
   }
 
   searchListUpdater = (searchInput) => {
