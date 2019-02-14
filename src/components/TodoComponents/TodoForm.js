@@ -5,12 +5,8 @@ import styled from 'styled-components';
 class TodoForm extends React.Component {
   state = {
     textInput: '',
-    searchInput: '',
   }
 
-  // componentDidUpdate() {
-  //   this.props.searchListUpdater(this.state.searchInput);
-  // }
 
   clearInput = () => {
     this.setState({ textInput: '' });
@@ -29,18 +25,10 @@ class TodoForm extends React.Component {
     e.preventDefault();
   }
 
-
   changeHandler = event => {
     this.setState({
       textInput: event.target.value,
     });
-  }
-
-  searchHandler = event => {
-    this.setState({
-      searchInput: event.target.value,
-    });
-    this.props.searchListUpdater(this.state.searchInput);
   }
 
   render() {
@@ -55,15 +43,7 @@ class TodoForm extends React.Component {
 
         <StyledButton onClick={this.addTodo}>Add task</StyledButton>
         <StyledButton onClick={this.removeCompleted}>Remove completed</StyledButton>
-
-        {/* <div>
-          <input
-            type="text"
-            placeholder="Search the list"
-            value={this.state.searchInput}
-            onChange={this.searchHandler}
-          />
-        </div> */}
+        
       </StyledForm>
     );
   }
@@ -85,6 +65,7 @@ const StyledInput = styled.input`
   margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #0A4958;
+  text-align: center;
 `;
 
 const StyledButton = styled.button`
@@ -98,14 +79,13 @@ const StyledButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.2s ease 0s;
+
   :hover {
     background-color: #F6E7D2;
     color: #01B6AD;
     border: 1px solid #01B6AD;
     transition: background-color 0.2s ease 0s;
 }
-
-
 `;
 
 

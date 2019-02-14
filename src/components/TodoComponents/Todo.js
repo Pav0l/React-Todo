@@ -22,8 +22,7 @@ export default function Todo({ todoList, markComplete }) {
   );
 }
 
-const StyledUl = styled.ul`
-  
+const StyledUl = styled.ul`  
   border-radius: 4px;
   list-style-type:none;
   padding-left: 0;
@@ -35,6 +34,7 @@ const StyledLi = styled.li`
   padding: 10px;
   border: 1px solid white;
   border-radius: 4px;
+  margin-top:2px;
 
   ::before {
     content: '🛠️';

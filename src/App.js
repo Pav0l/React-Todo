@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoForm from './components/TodoComponents/TodoForm.js';
 import TodoList from './components/TodoComponents/TodoList.js';
+import SearchForm from './components/TodoComponents/SearchForm.js';
 import styled from 'styled-components';
 
 class App extends React.Component {
@@ -9,7 +10,8 @@ class App extends React.Component {
 
     this.state = {
       todoList: JSON.parse(localStorage.getItem('todoList')) || [{item: 'Code', completed: false, id: 0}],
-      // originalList: [],
+      searchInput: '',
+      searchList: [],
     };
   }
 
@@ -44,21 +46,33 @@ class App extends React.Component {
   }
 
   searchListUpdater = (searchInput) => {
-    // // filter list
-    // localStorage.removeItem('origList');
-    // localStorage.setItem('origList', JSON.stringify(this.state.todoList));
-    // if(searchInput.length > 0) {
-    //   this.setState(prevState => {
-    //     const searchList = prevState.todoList.filter(task => task.item.includes(searchInput));
+    this.setState(oldState => {
+      const currentList = oldState.todoList.filter(task => task.item.includes(searchInput));
 
-    //     return {
-    //       todoList: [...searchList],
-    //     }
-    //   })
-    // } else {
-    //   const origList = JSON.parse(localStorage.getItem('origList'))
-    //   this.setState({ todoList: [...origList]})
-    // }
+      return {
+        todoList: [...currentList],
+        searchList: [],
+      }
+    })
+
+  }
+
+  searchHandler = event => {
+    this.setState({
+      searchInput: event.target.value,
+    }, /*() => {
+      if(this.searchInput === "") {
+
+      } else {
+        this.props.searchListUpdater(this.state.searchInput);
+      }} */ 
+    );  
+  }
+
+  stateSaver = () => {
+    if(this.state.stateSaver === []) {
+    this.setState({ stateSaver: [...this.props.todoList]/* PASS THE todoList state here */ })
+    }
   }
 
   render() {
@@ -68,6 +82,12 @@ class App extends React.Component {
         listUpdater={this.listUpdater}
         removeItem={this.removeItem}
         searchListUpdater={this.searchListUpdater}
+        todoList={this.state.todoList}
+        />
+
+        <SearchForm
+        searchInput={this.state.searchInput}
+        searchHandler={this.state.searchHandler}
         />
 
         <TodoList
