@@ -3,22 +3,23 @@ import './Todo.css';
 import styled from 'styled-components';
 
 export default function Todo({ todoList, markComplete }) {
+  const isVisible = todoList.filter(task => task.display === true);
   return (
-      <StyledUl>
-        {
-          todoList.length === 0 || todoList === null
-          ? <StyledH4>You are finished with all your tasks! Time to code!</StyledH4>
-          :
-          todoList.map((item, idx) => (
-            <StyledLi
-              key={idx}
-              id={idx}
-              onClick={() => markComplete(idx)}
-            >
-            {item.item}</StyledLi>
-          ))
-        }
-      </StyledUl>
+    <StyledUl>
+      {
+        todoList.length === 0
+        ? <StyledH4>You are finished with all your tasks! Time to code!</StyledH4>
+        :
+        isVisible.map((item, idx) => (
+          <StyledLi
+            key={idx}
+            id={idx}
+            onClick={() => markComplete(idx)}
+          >
+          {item.item}</StyledLi>
+        ))
+      }
+    </StyledUl>
   );
 }
 
@@ -35,6 +36,7 @@ const StyledLi = styled.li`
   border: 1px solid white;
   border-radius: 4px;
   margin-top:2px;
+  cursor: pointer;
 
   ::before {
     content: '🛠️';

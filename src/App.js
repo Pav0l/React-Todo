@@ -1,7 +1,6 @@
 import React from 'react';
 import TodoForm from './components/TodoComponents/TodoForm.js';
 import TodoList from './components/TodoComponents/TodoList.js';
-import SearchForm from './components/TodoComponents/SearchForm.js';
 import styled from 'styled-components';
 
 class App extends React.Component {
@@ -9,22 +8,20 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      todoList: JSON.parse(localStorage.getItem('todoList')) || [{item: 'Code', completed: false, id: 0}],
-      searchInput: '',
-      searchList: [],
+      todoList: JSON.parse(localStorage.getItem('todoList')) || [{item: 'Code', completed: false, id: 0, display: true}],
     };
   }
-
   
   componentDidUpdate() {
     localStorage.removeItem('todoList');
     localStorage.setItem('todoList', JSON.stringify(this.state.todoList));
   }
   
-
   listUpdater = (input) => {
     this.setState(state => ({
-      todoList: state.todoList.concat({item: input, completed: false, id: Date.now()})
+      todoList: state.todoList.concat({
+        item: input, completed: false, id: Date.now(), display: true,
+      })
     }));
   }
 
@@ -35,7 +32,6 @@ class App extends React.Component {
 
       return { todoList: [...newList] }
     })
-    console.log(document.getElementById(idx));
     document.getElementById(idx).classList.toggle('item-completed');
   }
 
@@ -46,35 +42,44 @@ class App extends React.Component {
   }
 
   searchListUpdater = (searchInput) => {
+
+    this.resetSearch();
+
     this.setState(oldState => {
-      const currentList = oldState.todoList.filter(task => task.item.includes(searchInput));
+      const searchList = oldState.todoList.map(task => {
+        let oneTask = task.item.toLowerCase();
+        let dispStat = oneTask.includes(searchInput.toLowerCase());
+        if(!dispStat) {
+          return {
+            ...task,
+            display: false,
+          }
+        }
+
+        return {
+          ...task,
+        }
+      });
 
       return {
-        todoList: [...currentList],
-        searchList: [],
+        todoList: searchList,
       }
     })
-
   }
 
-  searchHandler = event => {
-    this.setState({
-      searchInput: event.target.value,
-    }, /*() => {
-      if(this.searchInput === "") {
+  resetSearch = () => {
+    this.setState(oldState => {
+      const resetList = oldState.todoList.map(task => {
+        return {
+          ...task,
+          display: true,
+        }
+      });
 
-      } else {
-        this.props.searchListUpdater(this.state.searchInput);
-      }} */ 
-    );  
+      return { todoList: resetList };
+    })
   }
-
-  stateSaver = () => {
-    if(this.state.stateSaver === []) {
-    this.setState({ stateSaver: [...this.props.todoList]/* PASS THE todoList state here */ })
-    }
-  }
-
+  
   render() {
     return (
       <StyledDiv>
@@ -83,11 +88,7 @@ class App extends React.Component {
         removeItem={this.removeItem}
         searchListUpdater={this.searchListUpdater}
         todoList={this.state.todoList}
-        />
-
-        <SearchForm
-        searchInput={this.state.searchInput}
-        searchHandler={this.state.searchHandler}
+        resetSearch={this.resetSearch}
         />
 
         <TodoList

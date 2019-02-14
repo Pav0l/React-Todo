@@ -5,6 +5,7 @@ import styled from 'styled-components';
 class TodoForm extends React.Component {
   state = {
     textInput: '',
+    searchInput: '',
   }
 
 
@@ -31,6 +32,18 @@ class TodoForm extends React.Component {
     });
   }
 
+  searchHandler = (event) => { 
+    event.preventDefault();
+
+    this.setState({
+      searchInput: event.target.value,
+    },() => {
+      if(this.searchInput !== "") {
+        this.props.searchListUpdater(this.state.searchInput);
+      }
+    });
+  }
+
   render() {
     return (
       <StyledForm>
@@ -44,6 +57,13 @@ class TodoForm extends React.Component {
         <StyledButton onClick={this.addTodo}>Add task</StyledButton>
         <StyledButton onClick={this.removeCompleted}>Remove completed</StyledButton>
         
+        <StyledInput
+        type="text"
+        placeholder="Search to-do list"
+        value={this.state.searchInput}
+        onChange={this.searchHandler}
+        />
+
       </StyledForm>
     );
   }
