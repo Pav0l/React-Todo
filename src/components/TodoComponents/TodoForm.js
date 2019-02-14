@@ -81,7 +81,7 @@ const StyledForm = styled.form`
 `;
 
 const StyledInput = styled.input`
-  padding: 10px;
+  padding: 15px 10px;
   margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #0A4958;
