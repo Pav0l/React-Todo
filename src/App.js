@@ -7,19 +7,17 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      todoList: [{item: 'Eat', completed: false, id: 0}],
+      todoList: JSON.parse(localStorage.getItem('todoList')) || [{item: 'Code', completed: false, id: 0}],
+      // originalList: [],
     };
   }
 
-  /*
+  
   componentDidUpdate() {
-    // this goes into the state:
-    JSON.parse(localStorage.getItem('todoList'))
-    //  this stays in the method:
     localStorage.removeItem('todoList');
     localStorage.setItem('todoList', JSON.stringify(this.state.todoList));
   }
-  */
+  
 
   listUpdater = (input) => {
     this.setState(state => ({
@@ -44,16 +42,21 @@ class App extends React.Component {
   }
 
   searchListUpdater = (searchInput) => {
-    // filter list
-    /*
-    this.setState(st => {
-      const initialList = st.todoList;
-      const searchArr = st.todoList.filter((item) => item.item.includes(searchInput));
+    // // filter list
+    // localStorage.removeItem('origList');
+    // localStorage.setItem('origList', JSON.stringify(this.state.todoList));
+    // if(searchInput.length > 0) {
+    //   this.setState(prevState => {
+    //     const searchList = prevState.todoList.filter(task => task.item.includes(searchInput));
 
-      return {
-        todoList: [...searchArr],
-      }
-    });*/
+    //     return {
+    //       todoList: [...searchList],
+    //     }
+    //   })
+    // } else {
+    //   const origList = JSON.parse(localStorage.getItem('origList'))
+    //   this.setState({ todoList: [...origList]})
+    // }
   }
 
   render() {
