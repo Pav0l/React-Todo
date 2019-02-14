@@ -1,5 +1,6 @@
 import React from 'react';
 import './Todo.css';
+import styled from 'styled-components';
 
 class TodoForm extends React.Component {
   state = {
@@ -44,28 +45,68 @@ class TodoForm extends React.Component {
 
   render() {
     return (
-      <form>
-        <input
+      <StyledForm>
+        <StyledInput
           type="text"
           placeholder="What to do?"
           value={this.state.textInput}
           onChange={this.changeHandler}
         />
 
-        <button onClick={this.addTodo}>Add Todo</button>
-        <button onClick={this.removeCompleted}>Remove completed</button>
+        <StyledButton onClick={this.addTodo}>Add task</StyledButton>
+        <StyledButton onClick={this.removeCompleted}>Remove completed</StyledButton>
 
-        <div>
+        {/* <div>
           <input
             type="text"
             placeholder="Search the list"
             value={this.state.searchInput}
             onChange={this.searchHandler}
           />
-        </div>
-      </form>
+        </div> */}
+      </StyledForm>
     );
   }
 }
+
+const StyledForm = styled.form`
+  background-color: #01B6AD;
+  color: white;
+  padding: 20px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  max-width: 500px;
+`;
+
+const StyledInput = styled.input`
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #0A4958;
+`;
+
+const StyledButton = styled.button`
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #F6E7D2;
+  border: 1px solid #0A4958;
+  color: #0A4958;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease 0s;
+  :hover {
+    background-color: #F6E7D2;
+    color: #01B6AD;
+    border: 1px solid #01B6AD;
+    transition: background-color 0.2s ease 0s;
+}
+
+
+`;
+
 
 export default TodoForm;

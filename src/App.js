@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoForm from './components/TodoComponents/TodoForm.js';
 import TodoList from './components/TodoComponents/TodoList.js';
+import styled from 'styled-components';
 
 class App extends React.Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class App extends React.Component {
 
       return { todoList: [...newList] }
     })
+    console.log(document.getElementById(idx));
     document.getElementById(idx).classList.toggle('item-completed');
   }
 
@@ -61,7 +63,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <StyledDiv>
         <TodoForm
         listUpdater={this.listUpdater}
         removeItem={this.removeItem}
@@ -72,9 +74,21 @@ class App extends React.Component {
           todoList={this.state.todoList}
           markComplete={this.markComplete}
         />
-      </div>
+      </StyledDiv>
     );
   }
 }
+
+const StyledDiv = styled.div`
+  font-family: 'Maven Pro', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #0A4958;
+  color: white;
+`;
 
 export default App;

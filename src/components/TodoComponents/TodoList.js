@@ -1,16 +1,28 @@
 import React from 'react';
 import './Todo.css';
 import Todo from './Todo';
+import styled from 'styled-components';
 
 export default function TodoList({ todoList, markComplete }) {
   return (
-    <div>
-      <h2>Todo List: MVP </h2>
+    <StyledTodoListDiv>
+      <StyledH2>Things I want to do: </StyledH2>
       
       <Todo
       todoList={todoList}
       markComplete={markComplete}
       />
-    </div>
+    </StyledTodoListDiv>
   );
 }
+
+const StyledTodoListDiv = styled.div`
+  width: 50%;
+  padding: 20px;
+  max-width: 500px;
+`;
+
+const StyledH2 = styled.h2`
+  text-decoration: underline;
+  font-size: 1.8rem;
+`;
