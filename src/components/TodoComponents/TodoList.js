@@ -1,2 +1,28 @@
-// your components will all go in this `component` directory.
-// feel free to change this component.js into TodoList.js
+import React from 'react';
+import './Todo.css';
+import styled from 'styled-components';
+import Todo from './Todo';
+
+export default function TodoList({ todoList, markComplete }) {
+  return (
+    <StyledTodoListDiv>
+      <StyledH2>Things I want to do: </StyledH2>
+      
+      <Todo
+      todoList={todoList}
+      markComplete={markComplete}
+      />
+    </StyledTodoListDiv>
+  );
+}
+
+const StyledTodoListDiv = styled.div`
+  width: 50%;
+  padding: 0 20px 20px;
+  max-width: 500px;
+`;
+
+const StyledH2 = styled.h2`
+  text-decoration: underline;
+  font-size: 1.8rem;
+`;
