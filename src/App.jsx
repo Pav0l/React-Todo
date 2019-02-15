@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      todoList: JSON.parse(localStorage.getItem('todoList')) || [{ item: 'Code', completed: false, id: 0, display: true }],
+      todoList: JSON.parse(localStorage.getItem('todoList')) || [{ item: 'Code', completed: false, id: 0, display: true, category: 'left' }],
     };
   }
 
@@ -20,19 +20,30 @@ class App extends React.Component {
   listUpdater = (input) => {
     this.setState(state => ({
       todoList: state.todoList.concat({
-        item: input, completed: false, id: Date.now(), display: true,
+        item: input, completed: false, id: Date.now(), display: true, category: 'left',
       }),
     }));
   }
 
-  markComplete = (idx) => {
+  markComplete = (id) => {
     this.setState(oldState => {
       const newList = oldState.todoList;
-      newList[idx].completed = !oldState.todoList[idx].completed;
-
-      return { todoList: [...newList] };
+      // newList[id].completed = !oldState.todoList[id].completed;
+      newList.map(task => {
+        if (task.id === id) {
+          const taskStat = task.completed;
+          console.log('task completed', taskStat, !taskStat);
+          return {
+            ...task,
+            completed: !taskStat,
+          };
+        }
+        return { ...task };
+      });
+      console.log('newList', newList);
+      return { todoList: newList };
     });
-    document.getElementById(idx).classList.toggle('item-completed');
+    document.getElementById(id).classList.toggle('item-completed');
   }
 
   removeItem = () => {
@@ -79,6 +90,34 @@ class App extends React.Component {
     });
   }
 
+  onDragStart(event, itemId) {
+    event.dataTransfer.setData('id', itemId);
+  }
+
+  onDragOver = event => {
+    event.preventDefault();
+  }
+
+  onDrop = (event, categ) => {
+    const itemId = event.dataTransfer.getData('id');
+
+    this.setState(oldState => {
+      const tasks = oldState.todoList.map(task => {
+        if (task.id.toString() === itemId) {
+          return {
+            ...task,
+            category: categ,
+          };
+        }
+        return { ...task };
+      });
+
+      return {
+        todoList: tasks,
+      };
+    });
+  }
+
   render() {
     return (
       <StyledDiv>
@@ -93,6 +132,9 @@ class App extends React.Component {
         <TodoList
           todoList={this.state.todoList}
           markComplete={this.markComplete}
+          onDragStart={this.onDragStart}
+          onDragOver={this.onDragOver}
+          onDrop={this.onDrop}
         />
       </StyledDiv>
     );
