@@ -83,11 +83,11 @@ class App extends React.Component {
     return (
       <StyledDiv>
         <TodoForm
-        listUpdater={this.listUpdater}
-        removeItem={this.removeItem}
-        searchListUpdater={this.searchListUpdater}
-        todoList={this.state.todoList}
-        resetSearch={this.resetSearch}
+          listUpdater={this.listUpdater}
+          removeItem={this.removeItem}
+          searchListUpdater={this.searchListUpdater}
+          todoList={this.state.todoList}
+          resetSearch={this.resetSearch}
         />
 
         <TodoList
