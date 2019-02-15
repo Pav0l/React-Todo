@@ -36,6 +36,10 @@ const StyledUl = styled.ul`
   border-radius: 4px;
   list-style-type:none;
   padding-left: 0;
+  padding: 1rem;
+  background-color: #F6E7D2;
+  min-width: 320px;
+  min-height: 51px;
 `;
 
 const StyledLi = styled.li`

@@ -70,18 +70,21 @@ const StyledH2 = styled.h2`
 `;
 
 const DragMeInUl = styled.ul`
-  background-color: white;
-  padding: 0 20px;
+  background-color: #F6E7D2;
+  padding: 1rem;
   margin-bottom: 20px;
   max-width: 500px;
   width: 60%;
-  height: 70%;
+
+  min-width: 320px;
+  min-height: 51px;
   border-radius: 4px;
+  list-style-type:none;
 `;
 
 const StyledLiR = styled.li`
   font-size: 1.3rem;
-  background-color: #01B6AD;
+  background-color: rgba(241, 136, 41, 1);
   padding: 10px;
   border: 1px solid white;
   border-radius: 4px;
