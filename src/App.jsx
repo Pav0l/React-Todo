@@ -25,14 +25,25 @@ class App extends React.Component {
     }));
   }
 
-  markComplete = (idx) => {
+  markComplete = (id) => {
     this.setState(oldState => {
       const newList = oldState.todoList;
-      newList[idx].completed = !oldState.todoList[idx].completed;
-
-      return { todoList: [...newList] };
+      // newList[id].completed = !oldState.todoList[id].completed;
+      newList.map(task => {
+        if (task.id === id) {
+          const taskStat = task.completed;
+          console.log('task completed', taskStat, !taskStat);
+          return {
+            ...task,
+            completed: !taskStat,
+          };
+        }
+        return { ...task };
+      });
+      console.log('newList', newList);
+      return { todoList: newList };
     });
-    document.getElementById(idx).classList.toggle('item-completed');
+    document.getElementById(id).classList.toggle('item-completed');
   }
 
   removeItem = () => {

@@ -31,8 +31,8 @@ export default function TodoList({ todoList, markComplete, onDragStart, onDragOv
             isRight.map((item, idx) => (
               <StyledLiR
                 key={idx}
-                id={idx}
-                onClick={() => markComplete(idx)}
+                id={item.id}
+                onClick={() => markComplete(item.id)}
 
                 onDragStart={e => onDragStart(e, item.id)}
                 // this attribute makes the element draggable
