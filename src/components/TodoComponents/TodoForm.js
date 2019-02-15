@@ -56,12 +56,12 @@ class TodoForm extends React.Component {
 
         <StyledButton onClick={this.addTodo}>Add task</StyledButton>
         <StyledButton onClick={this.removeCompleted}>Remove completed</StyledButton>
-        
+
         <StyledInput
-        type="text"
-        placeholder="Search to-do list"
-        value={this.state.searchInput}
-        onChange={this.searchHandler}
+          type="text"
+          placeholder="Search to-do list"
+          value={this.state.searchInput}
+          onChange={this.searchHandler}
         />
 
       </StyledForm>
