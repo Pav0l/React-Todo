@@ -2,19 +2,25 @@ import React from 'react';
 import './Todo.css';
 import styled from 'styled-components';
 
-export default function Todo({ todoList, markComplete, onDragStart, onDragOver, onDrop }) {
-  const isVisible = todoList.filter(task => task.display === true && task.category === 'left');
-
+export default function Todo({
+  taskList,
+  markComplete,
+  onDragStart,
+  onDragOver,
+  onDrop,
+  message,
+  sideParam,
+}) {
   return (
     <StyledUl
       onDragOver={e => onDragOver(e)}
-      onDrop={e => onDrop(e, 'left')}
+      onDrop={e => onDrop(e, sideParam)}
     >
       {
-        todoList.length === 0
-          ? <StyledH4>You are finished with all your tasks! Time to code!</StyledH4>
+        taskList.length === 0
+          ? <StyledH4 side={sideParam}>{message}</StyledH4>
           :
-          isVisible.map((item, idx) => (
+          taskList.map((item, idx) => (
             <StyledLi
               key={idx}
               id={item.id}
@@ -23,6 +29,7 @@ export default function Todo({ todoList, markComplete, onDragStart, onDragOver, 
               onDragStart={e => onDragStart(e, item.id)}
               // this attribute makes the element draggable
               draggable
+              side={sideParam}
             >
               {item.item}
             </StyledLi>
@@ -38,35 +45,37 @@ const StyledUl = styled.ul`
   padding-left: 0;
   padding: 1rem;
   background-color: #F6E7D2;
-
   min-height: 51px;
 `;
 
 const StyledLi = styled.li`
-  font-size: 1.3rem;
-  background-color: #01B6AD;
+  font-size: 1.3rem;  
   padding: 10px;
   border: 1px solid white;
   border-radius: 4px;
   margin-top:2px;
   cursor: pointer;
 
+  /* Adapt the colors based on side prop */
+  background-color: ${props => (props.side === 'right' ? 'rgba(241, 136, 41, 1)' : '#01B6AD')};
+
   ::before {
     content: '🛠️';
+    content: ${props => (props.side === 'right' ? '\'💣\'' : '\'🛠️\'')};
     margin-right: 5px;
   }
 `;
 
 const StyledH4 = styled.h4`
   font-size: 1.3rem;
-  background-color: #01B6AD;
   padding: 10px;
   border: 1px solid white;
   border-radius: 4px;
   text-align: center;
+  background-color: ${props => (props.side === 'right' ? '#0A4958' : '#01B6AD')};
 
   ::before {
-    content: '🚀';
+    content: ${props => (props.side === 'right' ? '\'🏄\'' : '\'🚀\'')};
     margin-right: 5px;
   }
 `;
