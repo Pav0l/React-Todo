@@ -77,9 +77,7 @@ const DragMeInUl = styled.ul`
   padding: 1rem;
   margin-bottom: 20px;
   max-width: 500px;
-  width: 60%;
 
-  min-width: 320px;
   min-height: 51px;
   border-radius: 4px;
   list-style-type:none;
@@ -102,7 +100,7 @@ const StyledLiR = styled.li`
 
 const StyledH4 = styled.h4`
   font-size: 1.3rem;
-  background-color: #01B6AD;
+  background-color: #0A4958;
   padding: 10px;
   border: 1px solid white;
   border-radius: 4px;

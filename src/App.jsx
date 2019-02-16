@@ -27,22 +27,16 @@ class App extends React.Component {
 
   markComplete = (id) => {
     this.setState(oldState => {
-      // const newList = oldState.todoList;
-      // newList[id].completed = !oldState.todoList[id].completed;
       const newList = oldState.todoList.map(task => {
         if (task.id === id) {
           const taskStat = !task.completed;
-          // debugger
-          console.log('task inside if', task, taskStat, !taskStat);
           return {
             ...task,
             completed: taskStat,
           };
         }
-        console.log('items without IF: ', task);
         return { ...task };
       });
-      console.log('newList', newList);
       return { todoList: newList };
     });
     document.getElementById(id).classList.toggle('item-completed');
