@@ -28,19 +28,22 @@ export default function TodoList({ todoList, markComplete, onDragStart, onDragOv
           onDrop={e => onDrop(e, 'right')}
         >
           {
-            isRight.map((item, idx) => (
-              <StyledLiR
-                key={idx}
-                id={item.id}
-                onClick={() => markComplete(item.id)}
+            isRight.length === 0
+              ? <StyledH4>Nothing on fire, carry on.</StyledH4>
+              :
+              isRight.map((item, idx) => (
+                <StyledLiR
+                  key={idx}
+                  id={item.id}
+                  onClick={() => markComplete(item.id)}
 
-                onDragStart={e => onDragStart(e, item.id)}
-                // this attribute makes the element draggable
-                draggable
-              >
-                {item.item}
-              </StyledLiR>
-            ))
+                  onDragStart={e => onDragStart(e, item.id)}
+                  // this attribute makes the element draggable
+                  draggable
+                >
+                  {item.item}
+                </StyledLiR>
+              ))
           }
 
         </DragMeInUl>
@@ -93,6 +96,20 @@ const StyledLiR = styled.li`
 
   ::before {
     content: '💣';
+    margin-right: 5px;
+  }
+`;
+
+const StyledH4 = styled.h4`
+  font-size: 1.3rem;
+  background-color: #01B6AD;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 4px;
+  text-align: center;
+
+  ::before {
+    content: '🏄';
     margin-right: 5px;
   }
 `;
