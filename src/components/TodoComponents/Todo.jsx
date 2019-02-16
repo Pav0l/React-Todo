@@ -61,7 +61,7 @@ const StyledLi = styled.li`
 
   ::before {
     content: '🛠️';
-    content: ${props => (props.side === 'right' ? '💣' : '🛠️')};
+    content: ${props => (props.side === 'right' ? '\'💣\'' : '\'🛠️\'')};
     margin-right: 5px;
   }
 `;
@@ -72,12 +72,10 @@ const StyledH4 = styled.h4`
   border: 1px solid white;
   border-radius: 4px;
   text-align: center;
-
   background-color: ${props => (props.side === 'right' ? '#0A4958' : '#01B6AD')};
 
   ::before {
-    content: '🚀';
-    content: ${props => (props.side === 'right' ? '🏄' : '🚀')};
+    content: ${props => (props.side === 'right' ? '\'🏄\'' : '\'🚀\'')};
     margin-right: 5px;
   }
 `;
